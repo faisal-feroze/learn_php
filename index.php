@@ -1,83 +1,61 @@
 
-<html>
-
-
-<h1>    hi        </h1>
-
-<h1>  <?php  echo "hello";  ?>        </h1>
-
 <?php
 
+if(isset($_POST['user_registration'])){
 
-if(isset($_POST['submit'])){
+ include 'db_connect.php';
 
-  $student_name = $_POST['username'];
-  $father_name = $_POST['father'];
-  $mother_name = $_POST['mother'];
-  $school_name = $_POST['school'];
+ $first_name = $_POST['first_name'];
+ $last_name = $_POST['last_name'];
+ $mobile = $_POST['mobile'];
+ $age = $_POST['age'];
+ $email = $_POST['email'];
+ $password = $_POST['password'];
 
-  // echo $student_name; echo "<br>";
-  // echo $father_name;  echo "<br>";
-  // echo $mother_name;  echo "<br>";
-  // echo $school_name;
-
-
-  echo '<h1>'.$student_name.'</h1><br>'.$father_name.'<br>'.$mother_name.'<br>'.$school_name;
+ $encypt_pass = md5($password);
 
 
+
+ $query = "INSERT INTO users(first_name,last_name,mobile,age,email,password)
+ VALUES('$first_name','$last_name','$mobile','$age','$email','$encypt_pass')";
+
+ $result = mysqli_query($conn,$query);
+
+
+ if(!$result){
+     die('query failed'.mysqli_error($conn));
+ }
 
 
 
 }
 
-$hi = 'hello ki obstha saaaaaaaad ???';
 
 
 
-echo'
-<p>'.$hi .'  </p>
-<textarea></textarea>
-';
+ ?>
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    <form class="" action="" method="post">
+
+      <p>First Name: <input type="text" name="first_name" required> </p>
+      <p>Last Name: <input type="text" name="last_name" required> </p>
+      <p>Mobile: <input type="text" name="mobile" required> </p>
+      <p>Age: <input type="number" name="age" min='16' max = '100' required> </p>
+      <p>E-mail: <input type="email" name="email" required> </p>
+      <p>Password: <input type="password" name="password" required> </p>
+
+      <input type="submit" name="user_registration" value="Register">
+
+    </form>
 
 
-
-?>
-
-
-<form action="" method="POST">
-
-
-  <input name="username" type="text" placeholder="Enter your Name">
-
-  <input name="father" type="text" placeholder="Enter your Father's name">
-
-  <input name="mother" type="text" placeholder="Enter your Mother's Name">
-
-  <input name="school" type="text" placeholder="Enter your School's Name">
-
-  <input name="submit" type="submit" value="submit">
-
-
-</form>
-
-
-<?php
-
-
-
-
-
-?>
-
-
-
-
-
-
-
-
-
-
+  </body>
 </html>
-
-
